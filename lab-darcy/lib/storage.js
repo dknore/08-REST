@@ -1,64 +1,61 @@
 "use strict";
 
-const BoardGame = require('../models/boardgame.js');
+const SUV = require('../models/suv.js');
 
-// one object to store all games
-let GAMES = {};
+// one object to store all Cars
+let Cars = {};
 
-// pre-populate the storage with a few known games.
+// pre-populate the storage with a few known Cars.
 function seed() {
-  // reset all previous games
-  GAMES = {};
+  // reset all previous Cars
+  Cars = {};
 
-  // create and add new already-known games.
-  const risk = new BoardGame("Risk", 6, 180);
-  const catan = new BoardGame("Catan", 4, 80);
-  const solitaire = new BoardGame("Solitaire", 1, 30);
+  // create and add new already-known Cars.
+  const bmw = new SUV("BMW", "X7", "Black");
+  const audi = new SUV("Audi", "Q7", "Silver");
+  const porsche = new SUV("Porsche", "Cayenne", "Red");
 
-  GAMES[risk.id] = risk;
-  GAMES[catan.id] = catan;
-  GAMES[solitaire.id] = solitaire;
+  Cars[bmw.id] = bmw;
+  Cars[audi.id] = audi;
+  Cars[porsche.id] = porsche;
 }
 
 function size() {
-  let games = readAll();
-  return games.length;
+  let Cars = readAll();
+  return Cars.length;
 }
 
-function create(name, players, playtime) {
-  // make sure players and playtime are actual numbers (not strings)
-  players = parseInt(players, 10);
-  playtime = parseInt(playtime, 10);
+function create(make, model, color) {
 
-  const game = new BoardGame(name, players, playtime);
-  GAMES[game.id] = game;
-  return game;
+  const cars = new SUV(make, model, color);
+  Cars[cars.id] = cars;
+  return cars;
 }
 
 function readAll() {
-  return Object.values(GAMES);
+  return Object.values(Cars);
 }
 
 function read(id) {
-  if (!id in GAMES) {
-    throw "Game doesn't exist. ID: " + id;
+  if (!id in Cars) {
+    throw "Car does not exist. ID: " + id;
   }
-  return GAMES[id];
+  return Cars[id];
 }
 
-function update(id, name, players, playtime) {
-  let game = read(id);
-  game.name = name;
-  game.players = players;
-  game.playtime = playtime;
-  return game;
+function update(id, make, model, color) {
+  let cars = read(id);
+  cars.make = make;
+  cars.model = model;
+  cars.color = color;
+  return cars;
 }
 
 function del(id) {
-  // read the game to make sure it exists
-  let game = read(id);
-  delete GAMES[id];
-  return game;
+  // read the car to make sure it exists
+  let cars = read(id);
+  delete cars[id];
+  return cars;
 }
 
 module.exports = {

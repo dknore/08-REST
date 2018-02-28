@@ -1,17 +1,17 @@
 "use strict";
 
-const storage = require('../lib/storage');
+const storage = require('../lib/storage.js');
 storage.seed();
 
-function getGames(req, res) {
-  let games = storage.readAll();
-  let response = games;
+function getCars(req, res) {
+  let cars = storage.readAll(); 
+  let response = cars;
   if ('id' in req.url.query) {
     let id = req.url.query.id;
-    if (games[id] === undefined) {
-      throw "404 game id not found: " + id;
+    if (cars[id] === undefined) {
+      throw "404 Car ID not found: " + id;
     }
-    response = games[id];
+    response = cars[id];
   }
 
   res.writeHead(200, {
@@ -21,21 +21,21 @@ function getGames(req, res) {
   res.end();
 }
 
-function createGame(req, res) {
-  let name = req.url.query.name;
-  let player = req.url.query.player;
-  let playtime = req.url.query.playtime;
+function createCar(req, res) {
+  let make = req.url.query.make;
+  let model = req.url.query.model;
+  let color = req.url.query.color;
   
-  let game = storage.createGame(name, player, playtime);
-  return game;
+  let car = storage.createCar(make, model, color);
+  return car;
 }
 
-function updateGame(req, res) {
-
-}
-
-function deleteGame(req, res) {
+function updateCar(req, res) {
 
 }
 
-module.exports = {getGames, createGame, updateGame, deleteGame};
+function deleteCar(req, res) {
+
+}
+
+module.exports = {getCars, createCar, updateCar, deleteCar};

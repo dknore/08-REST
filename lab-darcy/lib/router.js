@@ -35,7 +35,6 @@ class Router {
     if (method === "PUT" || method === "POST") {
     }
 
-
     req.url = parseUrl(req.url);
     req.url.query = parseQuery(req.url.query);
     console.log('URL:', req.url.href);
@@ -43,6 +42,7 @@ class Router {
 
     let path = req.url.pathname;
     const route = this.routes[method][path];
+    
     if (!route) {
       throw `404 Not Found: ${method} ${url}`; 
     }

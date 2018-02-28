@@ -1,48 +1,48 @@
 "use strict";
 
-const storage = require('../lib/storage');
+const storage = require('../lib/storage.js');
 
 describe("Storage", () => {
   beforeEach(() => {
     storage.seed();
   })
 
-  test("Should have a few games after populating", () => {
+  test("Should have a few Cars after populating", () => {
     expect(storage.size()).toEqual(3);
   });
 
-  test("should be able to create a new game", () => {
-    let name = "monopoly";
-    let players = 6;
-    let playtime = 180;
-    let game = storage.create(name, players, playtime);
+  test("Should be able to create a new car", () => {
+    let make = "Lexus";
+    let model = "RX";
+    let color = "Charcoal";
+    let car = storage.create(make, model, color);
 
-    expect(game.name).toEqual(name);
-    expect(game.players).toEqual(players);
-    expect(game.playtime).toEqual(playtime);
+    expect(car.make).toEqual(make);
+    expect(car.model).toEqual(model);
+    expect(car.color).toEqual(color);
 
     expect(storage.size()).toEqual(4);
   });
 
-  test("should be able to create a new game then get it", () => {
-    let name = "uno";
-    let players = 4;
-    let playtime = 60;
-    let game = storage.create(name, players, playtime);
+  test("Should be able to create a new car then get it", () => {
+    let make = "Land Rover";
+    let model = "Range Rover";
+    let color = "Orange";
+    let car = storage.create(make, model, color);
 
-    expect(game.name).toEqual(name);
-    expect(game.players).toEqual(players);
-    expect(game.playtime).toEqual(playtime);
+    expect(car.make).toEqual(make);
+    expect(car.model).toEqual(model);
+    expect(car.color).toEqual(color);
 
     expect(storage.size()).toEqual(4);
 
-    let readGame = storage.read(game.id);
-    expect(readGame.name).toEqual(name);
-    expect(readGame.players).toEqual(players);
-    expect(readGame.playtime).toEqual(playtime);
+    let readCar = storage.read(car.id);
+    expect(readCar.make).toEqual(make);
+    expect(readGame.model).toEqual(model);
+    expect(readGame.color).toEqual(color);
   });
 
-  test("should be able to create a new game then update it", () => {
+  test("Should be able to create a new car then update it", () => {
     let name = "uno";
     let players = 4;
     let playtime = 60;
@@ -61,26 +61,26 @@ describe("Storage", () => {
   });
 
   test("delete game", () => {
-    let gamesBeforeDelete = storage.readAll();
-    let originalSize = gamesBeforeDelete.length;
-    let game = gamesBeforeDelete[0];
+    let CarsBeforeDelete = storage.readAll();
+    let originalSize = CarsBeforeDelete.length;
+    let cars = CarsBeforeDelete[0];
 
-    let isGameInGames = false
-    gamesBeforeDelete.forEach(gg => {
-      if (gg.id === game.id) {
-        isGameInGames = true;
+    let isCarInCars = false
+    CarsBeforeDelete.forEach(gg => {
+      if (gg.id === cars.id) {
+        isCarInCars = true;
       }
     });
-    expect(isGameInGames).toEqual(true);
+    expect(isCarInCars).toEqual(true);
 
-    storage.del(game.id);
+    storage.del(car.id);
 
-    let gamesAfterDelete = storage.readAll();
-    let newSize = gamesAfterDelete.length;
+    let CarsAfterDelete = storage.readAll();
+    let newSize = CarsAfterDelete.length;
 
     expect(newSize).toEqual(originalSize - 1);
-    gamesAfterDelete.forEach(gg => {
-      expect(gg.id).not.toEqual(game.id);
+    CarsAfterDelete.forEach(gg => {
+      expect(gg.id).not.toEqual(car.id);
     });
   });
 });

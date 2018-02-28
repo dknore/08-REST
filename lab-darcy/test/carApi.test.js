@@ -3,34 +3,34 @@
 const request = require('superagent');
 const SERVER_URL = 'http://localhost:3000';
 
-describe('games API', () => {
-  test('get all games', (done) => {
-    request.get(SERVER_URL + '/games')
+describe('Cars API', () => {
+  test('Get all Cars', (done) => {
+    request.get(SERVER_URL + '/Cars')
     .end((err, res) => {
       expect(res.status).toBe(200);
 
-      let games = res.body;
-      expect(games.length).toBe(3);
+      let Cars = res.body;
+      expect(Cars.length).toBe(3);
       done();
     });
   });
 
-  test('get one game', (done) => {
-    request.get(SERVER_URL + '/games')
+  test('get one car', (done) => {
+    request.get(SERVER_URL + '/Cars')
     .end((err, res) => {
       expect(res.status).toBe(200);
 
-      let games = res.body;
-      expect(games.length).toBe(3);
+      let Cars = res.body;
+      expect(Cars.length).toBe(3);
 
-      let game = games[0];
-      request.get(SERVER_URL + `/games?id=${game.id}`)
+      let cars = Cars[0];
+      request.get(SERVER_URL + `/Cars?id=${cars.id}`)
       .end((err, res) => {
         expect(res.status).toBe(200);
-        let gameResponse = res.body;
-        expect(gameResponse.name).toEqual(game.name);
-        expect(gameResponse.players).toEqual(game.players);
-        expect(gameResponse.playtime).toEqual(game.playtime);
+        let carResponse = res.body;
+        expect(carResponse.make).toEqual(cars.make);
+        expect(carsResponse.model).toEqual(cars.model);
+        expect(carsResponse.color).toEqual(cars.color);
       });
     });
   });
