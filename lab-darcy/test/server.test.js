@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const request = require('superagent');
 const SERVER_URL = 'http://localhost:3000';

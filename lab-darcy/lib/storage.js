@@ -1,64 +1,55 @@
-"use strict";
+'use strict';
 
-const SUV = require('../models/suv.js');
+const car = require('../model/car.js');
 
-// one object to store all Cars
-let Cars = {};
+let cars = {}; // Array?
 
-// pre-populate the storage with a few known Cars.
 function seed() {
-  // reset all previous Cars
-  Cars = {};
+  cars = {};
 
-  // create and add new already-known Cars.
-  const bmw = new SUV("BMW", "X7", "Black");
-  const audi = new SUV("Audi", "Q7", "Silver");
-  const porsche = new SUV("Porsche", "Cayenne", "Red");
+  save(new Car('BMW', 'X7', 'Black'));
+  save(new Car('Audi', 'Q7', 'Silver'));
+  save(new Car('Porsche', 'Cayenne', 'Red'));
 
-  Cars[bmw.id] = bmw;
-  Cars[audi.id] = audi;
-  Cars[porsche.id] = porsche;
+  // const bmw = new Car('BMW', 'X7', 'Black');
+  // const audi = new Car('Audi', 'Q7', 'Silver');
+  // const porsche = new Car('Porsche', 'Cayenne', 'Red');
+
+  // Cars[bmw.id] = bmw;
+  // Cars[audi.id] = audi;
+  // Cars[porsche.id] = porsche;
 }
 
-function size() {
-  let Cars = readAll();
-  return Cars.length;
+function save (car) {
+  cars[car.id] = car;
+}
+
+function totalCars() {
+  let cars = readAll();
+  return cars.length;
 }
 
 function create(make, model, color) {
-
-  const cars = new SUV(make, model, color);
+  const cars = new CAR(make, model, color);
   Cars[cars.id] = cars;
   return cars;
 }
 
-function readAll() {
-  return Object.values(Cars);
-}
-
-function read(id) {
+function getOne(id) {
   if (!id in Cars) {
-    throw "Car does not exist. ID: " + id;
+    throw 'Car does not exist. ID: ' + id;
   }
   return Cars[id];
 }
 
-function update(id, make, model, color) {
-  let cars = read(id);
-  cars.make = make;
-  cars.model = model;
-  cars.color = color;
-  return cars;
+function getAll() {
+  return Object.values(Cars);
 }
 
 function del(id) {
-  // read the car to make sure it exists
   let cars = read(id);
   delete cars[id];
   return cars;
 }
 
-module.exports = {
-  seed, size,
-  create, readAll, read, update, del,
-};
+module.exports = {seed, save, create, totalCars, getOne, getAll, del};

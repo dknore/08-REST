@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
 const parseUrl = require('url').parse;
 const parseQuery = require('querystring').parse;
 
 class Router {
   constructor() {
-    this.routes = {
+    this.route = {
       GET: {},
       POST: {},
       PUT: {},
@@ -14,25 +14,25 @@ class Router {
   }
 
   get(path, cb) {
-    this.routes.GET[path] = cb;
+    this.route.GET[path] = cb;
   }
 
   post(path, cb) {
-    this.routes.POST[path] = cb;
+    this.route.POST[path] = cb;
   }
 
   put(path, cb) {
-    this.routes.PUT[path] = cb;
+    this.route.PUT[path] = cb;
   }
 
   delete(path, cb) {
-    this.routes.DELETE[path] = cb;
+    this.route.DELETE[path] = cb;
   }
 
   route(req, res) {
     const method = req.method;
 
-    if (method === "PUT" || method === "POST") {
+    if (method === 'PUT' || method === 'POST') {
     }
 
     req.url = parseUrl(req.url);
@@ -41,7 +41,7 @@ class Router {
     console.log('QUERY:', req.url.query);
 
     let path = req.url.pathname;
-    const route = this.routes[method][path];
+    const route = this.route[method][path];
     
     if (!route) {
       throw `404 Not Found: ${method} ${url}`; 
@@ -72,4 +72,4 @@ class Router {
   }
 }
 
-module.exports = Router;
+module.exports = { Router };

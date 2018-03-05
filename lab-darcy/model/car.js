@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-const uuidv4 = require('uuid/v4');
+const uuidv4 = require('uuidv4');
 
-class SUV {
+class Car {
   constructor(make, model, color) {
     this.id = uuidv4();
     this.make = make;
@@ -11,4 +11,4 @@ class SUV {
   }
 }
 
-module.exports = SUV;
+module.exports = Car;
